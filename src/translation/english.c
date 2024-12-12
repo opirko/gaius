@@ -48,6 +48,7 @@ static translation_string all_strings[] = {
     {TR_CONFIG_FIX_IMMIGRATION_BUG, "Fix immigration bug on very hard"},
     {TR_CONFIG_FIX_100_YEAR_GHOSTS, "Fix 100-year-old ghosts"},
     {TR_CONFIG_GLOBAL_LABOUR, "Enable global labor pool"},
+    {TR_CONFIG_RETIRE_AT_60, "Change citizens' retirement age from 50 to 60"},
     {TR_HOTKEY_TITLE, "Julius hotkey configuration"},
     {TR_HOTKEY_LABEL, "Hotkey"},
     {TR_HOTKEY_ALTERNATIVE_LABEL, "Alternative"},

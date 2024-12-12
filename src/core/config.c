@@ -29,6 +29,7 @@ static const char *ini_keys[] = {
     "ui_show_military_sidebar",
     "ui_show_speedrun_info",
     "gameplay_change_global_labour",
+    "gameplay_change_retire_at_60",
 };
 
 static const char *ini_string_keys[] = {
