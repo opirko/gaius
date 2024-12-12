@@ -7,3 +7,7 @@
 See [Julius](https://github.com/bvschaik/julius) for details.
 Gaius will contain certain good to have features, but will not expand the game in a significant manner such as [Augustus](https://github.com/Keriew/augustus).
 
+New features:
+- Roadblocks
+- Option for global worker pool
+- Option for higher retirement age (50 -> 60)
