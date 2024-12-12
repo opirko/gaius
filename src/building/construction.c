@@ -309,6 +309,7 @@ void building_construction_set_type(building_type type)
                 data.required_terrain.water = 1;
                 break;
             case BUILDING_GATEHOUSE:
+            case BUILDING_ROADBLOCK:
             case BUILDING_TRIUMPHAL_ARCH:
                 data.road_orientation = 1;
                 break;
@@ -484,6 +485,8 @@ void building_construction_update(int x, int y, int grid_offset)
         if (items_placed >= 0) current_cost *= items_placed;
     } else if (type == BUILDING_GATEHOUSE) {
         mark_construction(x, y, 2, ~TERRAIN_ROAD, 0);
+    } else if (type == BUILDING_ROADBLOCK) {
+        // Don't show the footprint for roadblocks
     } else if (type == BUILDING_TRIUMPHAL_ARCH) {
         mark_construction(x, y, 3, ~TERRAIN_ROAD, 0);
     } else if (type == BUILDING_WAREHOUSE) {

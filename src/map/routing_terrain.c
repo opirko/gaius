@@ -35,6 +35,7 @@ static int get_land_type_citizen_building(int grid_offset)
     switch (b->type) {
         case BUILDING_WAREHOUSE:
         case BUILDING_GATEHOUSE:
+        case BUILDING_ROADBLOCK:
             type = CITIZEN_0_ROAD;
             break;
         case BUILDING_FORT_GROUND:
@@ -166,6 +167,9 @@ static int get_land_type_noncitizen(int grid_offset)
                     type = NONCITIZEN_0_PASSABLE;
                     break;
             }
+            break;
+        case BUILDING_ROADBLOCK:
+            type = NONCITIZEN_0_PASSABLE;
             break;
     }
     return type;

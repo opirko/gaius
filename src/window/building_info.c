@@ -145,6 +145,7 @@ static int get_height_id(void)
                 return 3;
 
             case BUILDING_WELL:
+            case BUILDING_ROADBLOCK:
                 return 4;
 
             default:
@@ -483,6 +484,8 @@ static void draw_background(void)
             window_building_draw_prefect(&context);
         } else if (btype == BUILDING_GATEHOUSE) {
             window_building_draw_gatehouse(&context);
+        } else if (btype == BUILDING_ROADBLOCK) {
+            window_building_draw_roadblock(&context);
         } else if (btype == BUILDING_TOWER) {
             window_building_draw_tower(&context);
         } else if (btype == BUILDING_MILITARY_ACADEMY) {

@@ -21,7 +21,7 @@ static const building_type MENU_BUILDING_TYPE[BUILD_MENU_MAX][BUILD_MENU_ITEM_MA
     {BUILDING_FORUM, BUILDING_SENATE,
         BUILDING_GOVERNORS_HOUSE, BUILDING_GOVERNORS_VILLA, BUILDING_GOVERNORS_PALACE,
         BUILDING_SMALL_STATUE, BUILDING_MEDIUM_STATUE, BUILDING_LARGE_STATUE, BUILDING_TRIUMPHAL_ARCH, 0},
-    {BUILDING_GARDENS, BUILDING_PLAZA, BUILDING_ENGINEERS_POST, BUILDING_LOW_BRIDGE, BUILDING_SHIP_BRIDGE,
+    {BUILDING_GARDENS, BUILDING_PLAZA, BUILDING_ROADBLOCK, BUILDING_ENGINEERS_POST, BUILDING_LOW_BRIDGE, BUILDING_SHIP_BRIDGE,
         BUILDING_SHIPYARD, BUILDING_DOCK, BUILDING_WHARF, 0},
     {BUILDING_WALL, BUILDING_TOWER, BUILDING_GATEHOUSE, BUILDING_PREFECTURE,
         BUILDING_FORT, BUILDING_MILITARY_ACADEMY, BUILDING_BARRACKS, 0},
@@ -158,6 +158,7 @@ static void enable_normal(int *enabled, building_type type)
             *enabled = 1;
         }
     }
+    enable_if_allowed(enabled, type, BUILDING_ROADBLOCK);
 }
 
 static void enable_tutorial1_start(int *enabled, building_type type)
@@ -180,6 +181,7 @@ static void enable_tutorial1_after_collapse(int *enabled, building_type type)
     enable_tutorial1_after_fire(enabled, type);
     enable_if_allowed(enabled, type, BUILDING_ENGINEERS_POST);
     enable_if_allowed(enabled, type, BUILDING_SENATE);
+    enable_if_allowed(enabled, type, BUILDING_ROADBLOCK);
 }
 
 static void enable_tutorial2_start(int *enabled, building_type type)
@@ -195,6 +197,7 @@ static void enable_tutorial2_start(int *enabled, building_type type)
     enable_if_allowed(enabled, type, BUILDING_GRANARY);
     enable_if_allowed(enabled, type, BUILDING_MENU_FARMS);
     enable_if_allowed(enabled, type, BUILDING_MENU_SMALL_TEMPLES);
+    enable_if_allowed(enabled, type, BUILDING_ROADBLOCK);
 }
 
 static void enable_tutorial2_up_to_250(int *enabled, building_type type)

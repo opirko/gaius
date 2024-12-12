@@ -189,6 +189,9 @@ static void draw_menu_buttons(void)
             type = BUILDING_RESERVOIR;
         }
         int cost = model_get_building(type)->cost;
+        if (type == BUILDING_ROADBLOCK){
+            cost = 40;
+        }
         if (type == BUILDING_FORT) {
             cost = 0;
         }

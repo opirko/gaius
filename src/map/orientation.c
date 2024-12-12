@@ -329,6 +329,10 @@ void map_orientation_update_buildings(void)
                 }
                 map_water_add_building(i, b->x, b->y, 3, image_id);
                 break;
+            case BUILDING_ROADBLOCK:
+                map_building_tiles_add(i, b->x, b->y, b->size, image_group(GROUP_TERRAIN_PLAZA), TERRAIN_BUILDING);
+                map_terrain_add_roadblock_road(b->x, b->y);
+                break;
         }
     }
 }

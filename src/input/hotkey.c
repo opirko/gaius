@@ -267,6 +267,10 @@ static void set_definition_for_action(hotkey_action action, hotkey_definition *d
             def->action = &data.hotkey_state.building;
             def->value = BUILDING_FOUNTAIN;
             break;
+        case HOTKEY_BUILD_ROADBLOCK:
+            def->action = &data.hotkey_state.building;
+            def->value = BUILDING_ROADBLOCK;
+            break;
         case HOTKEY_BUILD_DOCTOR:
             def->action = &data.hotkey_state.building;
             def->value = BUILDING_DOCTOR;

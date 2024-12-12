@@ -216,7 +216,7 @@ void building_update_state(void)
         }
         if (b->state != BUILDING_STATE_IN_USE || !b->house_size) {
             if (b->state == BUILDING_STATE_UNDO || b->state == BUILDING_STATE_DELETED_BY_PLAYER) {
-                if (b->type == BUILDING_TOWER || b->type == BUILDING_GATEHOUSE) {
+                if (b->type == BUILDING_TOWER || b->type == BUILDING_GATEHOUSE || BUILDING_ROADBLOCK) {
                     wall_recalc = 1;
                     road_recalc = 1;
                 } else if (b->type == BUILDING_RESERVOIR) {
@@ -225,6 +225,11 @@ void building_update_state(void)
                     road_recalc = 1;
                 }
                 map_building_tiles_remove(i, b->x, b->y);
+                if (b->type == BUILDING_ROADBLOCK) {
+                    // Leave the road behind the deleted roadblock
+                    map_terrain_add(b->grid_offset, TERRAIN_ROAD);
+                    road_recalc = 1;
+                }
                 land_recalc = 1;
                 building_delete(b);
             } else if (b->state == BUILDING_STATE_RUBBLE) {

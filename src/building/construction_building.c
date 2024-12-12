@@ -404,6 +404,12 @@ static void add_to_map(int type, building *b, int size,
         case BUILDING_ORACLE:
             add_building(b, image_group(GROUP_BUILDING_ORACLE));
             break;
+        case BUILDING_ROADBLOCK:
+            add_building(b, image_group(GROUP_TERRAIN_PLAZA));
+            map_terrain_add_roadblock_road(b->x, b->y);
+            map_tiles_update_area_roads(b->x, b->y, 5);
+            map_tiles_update_all_plazas();
+            break;
         // ships
         case BUILDING_SHIPYARD:
             b->data.industry.orientation = waterside_orientation_abs;
@@ -498,7 +504,7 @@ static void add_to_map(int type, building *b, int size,
 int building_construction_place_building(building_type type, int x, int y)
 {
     int terrain_mask = TERRAIN_ALL;
-    if (type == BUILDING_GATEHOUSE || type == BUILDING_TRIUMPHAL_ARCH) {
+    if (type == BUILDING_GATEHOUSE || type == BUILDING_ROADBLOCK || type == BUILDING_TRIUMPHAL_ARCH) {
         terrain_mask = ~TERRAIN_ROAD;
     } else if (type == BUILDING_TOWER) {
         terrain_mask = ~TERRAIN_WALL;
@@ -530,6 +536,11 @@ int building_construction_place_building(building_type type, int x, int y)
             } else {
                 building_orientation = 2;
             }
+        }
+    }
+    if (type == BUILDING_ROADBLOCK) {
+        if (map_tiles_are_clear(x, y, size, TERRAIN_ROAD)) {
+            return 0;
         }
     }
     if (type == BUILDING_TRIUMPHAL_ARCH) {
