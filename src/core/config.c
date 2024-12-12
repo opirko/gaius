@@ -28,6 +28,7 @@ static const char *ini_keys[] = {
     "ui_highlight_legions",
     "ui_show_military_sidebar",
     "ui_show_speedrun_info",
+    "gameplay_change_global_labour",
 };
 
 static const char *ini_string_keys[] = {
