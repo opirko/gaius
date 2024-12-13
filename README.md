@@ -7,5 +7,6 @@ Gaius will contain certain good to have features, but will not expand the game i
 
 New features:
 - Roadblocks
+- Warehouse and Granary permissions
 - Option for global worker pool
 - Option for higher retirement age (50 -> 60)

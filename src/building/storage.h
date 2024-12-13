@@ -1,6 +1,7 @@
 #ifndef BUILDING_STORAGE_H
 #define BUILDING_STORAGE_H
 
+#include "building/building.h"
 #include "core/buffer.h"
 #include "game/resource.h"
 
@@ -22,12 +23,20 @@ typedef enum {
     BUILDING_STORAGE_STATE_GETTING = 2
 } building_storage_state;
 
+typedef enum {
+    BUILDING_STORAGE_PERMISSION_MARKET = 0,
+    BUILDING_STORAGE_PERMISSION_TRADERS = 1,
+    BUILDING_STORAGE_PERMISSION_DOCK = 2,
+} building_storage_permission_states;
+
+
 /**
  * Building storage struct
  */
 typedef struct {
     int empty_all;
     building_storage_state resource_state[RESOURCE_MAX];
+    int permissions;
 } building_storage;
 
 /**
@@ -96,5 +105,8 @@ void building_storage_save_state(buffer *buf);
  * @param buf Buffer to read from
  */
 void building_storage_load_state(buffer *buf);
+
+void building_storage_set_permission(building_storage_permission_states p, building *b);
+int building_storage_get_permission(building_storage_permission_states p, building *b);
 
 #endif // BUILDING_STORAGE_H

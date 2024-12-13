@@ -20,6 +20,7 @@ static void go_to_orders(int param1, int param2);
 static void toggle_resource_state(int index, int param2);
 static void granary_orders(int param1, int param2);
 static void warehouse_orders(int index, int param2);
+static void storage_toggle_permissions(int index, int param2);
 
 static generic_button go_to_orders_button[] = {
     {0, 0, 304, 20, go_to_orders, button_none, 0, 0}
@@ -54,12 +55,33 @@ static generic_button warehouse_order_buttons[] = {
     {314, 0, 20, 20, warehouse_orders, button_none, 2, 0},
 };
 
+static generic_button warehouse_distribution_permissions_buttons[] = {
+     {0, 0, 20, 22, storage_toggle_permissions, button_none, 1, 0},
+     {96, 0, 20, 22, storage_toggle_permissions, button_none, 2, 0},
+     {228, 0, 20, 22, storage_toggle_permissions, button_none, 3, 0},
+};
+
 static struct {
     int focus_button_id;
     int orders_focus_button_id;
     int resource_focus_button_id;
+    int permission_focus_button_id;
     int building_id;
-} data = {0, 0, 0, 0};
+} data = {0, 0, 0, 0, 0};
+
+static void draw_permissions_buttons(int x, int y, int buttons)
+{
+    uint8_t permission_button_text[] = {'x', 0};
+    int offsets[] = {96, 132, 96};
+    for (int i = 0; i < buttons; i++)
+     {
+        button_border_draw(x, y, 20, 20, data.permission_focus_button_id == i + 1 ? 1 : 0);
+        if (building_storage_get_permission(i, building_get(data.building_id))) {
+            text_draw_centered(permission_button_text, x + 1, y + 4, 20, FONT_NORMAL_BLACK, 0);
+        }
+        x += offsets[i];
+     }
+}
 
 void window_building_draw_dock(building_info_context *c)
 {
@@ -209,6 +231,8 @@ void window_building_draw_granary(building_info_context *c)
     int has_cart_orders = cartpusher && figure_get(cartpusher)->state == FIGURE_STATE_ALIVE;
     inner_panel_draw(c->x_offset + 16, c->y_offset + 136, c->width_blocks - 2, has_cart_orders ? 5 : 4);
     window_building_draw_employment(c, 142);
+    image_draw(image_group(GROUP_FIGURE_MARKET_LADY) + 4, c->x_offset + 28, c->y_offset + 19 * c->height_blocks - 93);
+    draw_permissions_buttons(c->x_offset + 58, c->y_offset + 19 * c->height_blocks - 82, 1);
     if (has_cart_orders) {
         int resource = figure_get(cartpusher)->resource_id;
         image_draw(image_group(GROUP_RESOURCE_ICONS) + resource +
@@ -229,6 +253,10 @@ void window_building_draw_granary_foreground(building_info_context *c)
 
 int window_building_handle_mouse_granary(const mouse *m, building_info_context *c)
 {
+    data.building_id = c->building_id;
+    if (generic_buttons_handle_mouse(m, c->x_offset + 58, c->y_offset + 19 * c->height_blocks - 82,
+        warehouse_distribution_permissions_buttons, 1, &data.permission_focus_button_id)) {
+    }
     return generic_buttons_handle_mouse(
         m, c->x_offset + 80, c->y_offset + BLOCK_SIZE * c->height_blocks - 34,
         go_to_orders_button, 1, &data.focus_button_id);
@@ -322,6 +350,7 @@ void window_building_draw_warehouse(building_info_context *c)
     outer_panel_draw(c->x_offset, c->y_offset, c->width_blocks, c->height_blocks);
     lang_text_draw_centered(99, 0, c->x_offset, c->y_offset + 10, BLOCK_SIZE * c->width_blocks, FONT_LARGE_BLACK);
     building *b = building_get(c->building_id);
+    data.building_id = c->building_id;
     if (!c->has_road_access) {
         window_building_draw_description(c, 69, 25);
     } else {
@@ -368,6 +397,9 @@ void window_building_draw_warehouse(building_info_context *c)
         lang_text_draw_multiline(99, 14, c->x_offset + 32, c->y_offset + BLOCK_SIZE * c->height_blocks - 93,
             BLOCK_SIZE * (c->width_blocks - 4), FONT_NORMAL_BLACK);
     }
+    image_draw(image_group(GROUP_FIGURE_MARKET_LADY) + 4, c->x_offset + 32, c->y_offset + 16 * c->height_blocks - 93);
+    image_draw(image_group(GROUP_FIGURE_TRADE_CARAVAN) + 4, c->x_offset + 128, c->y_offset + 16 * c->height_blocks - 93);
+    image_draw(image_group(GROUP_FIGURE_SHIP) + 4, c->x_offset + 216, c->y_offset + 16 * c->height_blocks - 110);
 }
 
 void window_building_draw_warehouse_foreground(building_info_context *c)
@@ -376,12 +408,19 @@ void window_building_draw_warehouse_foreground(building_info_context *c)
         BLOCK_SIZE * (c->width_blocks - 10), 20, data.focus_button_id == 1 ? 1 : 0);
     lang_text_draw_centered(99, 2, c->x_offset + 80, c->y_offset + BLOCK_SIZE * c->height_blocks - 30,
         BLOCK_SIZE * (c->width_blocks - 10), FONT_NORMAL_BLACK);
+    draw_permissions_buttons(c->x_offset + 64, c->y_offset + 16 * c->height_blocks - 75, 3);
 }
 
 int window_building_handle_mouse_warehouse(const mouse *m, building_info_context *c)
 {
-    return generic_buttons_handle_mouse(m, c->x_offset + 80, c->y_offset + BLOCK_SIZE * c->height_blocks - 34,
-        go_to_orders_button, 1, &data.focus_button_id);
+    data.building_id = c->building_id;
+    if (generic_buttons_handle_mouse(m, c->x_offset + 80, c->y_offset + BLOCK_SIZE * c->height_blocks - 34,
+        go_to_orders_button, 1, &data.focus_button_id)) {
+    }
+    if (generic_buttons_handle_mouse(m, c->x_offset + 64, c->y_offset + BLOCK_SIZE * c->height_blocks - 75,
+        warehouse_distribution_permissions_buttons, 3, &data.permission_focus_button_id)) {
+    }
+    return 0;
 }
 
 void window_building_draw_warehouse_orders(building_info_context *c)
@@ -467,6 +506,13 @@ void window_building_get_tooltip_warehouse_orders(int *group_id, int *text_id)
 static void go_to_orders(int param1, int param2)
 {
     window_building_info_show_storage_orders();
+}
+
+static void storage_toggle_permissions(int index, int param2)
+{
+    building* b = building_get(data.building_id);
+    building_storage_set_permission(index - 1, b);
+    window_invalidate();
 }
 
 static void toggle_resource_state(int index, int param2)

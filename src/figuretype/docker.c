@@ -23,6 +23,9 @@ static int try_import_resource(int building_id, int resource, int city_id)
     if (warehouse->type != BUILDING_WAREHOUSE) {
         return 0;
     }
+    if (!building_storage_get_permission(BUILDING_STORAGE_PERMISSION_DOCK, warehouse)) {
+        return 0;
+    }
 
     int route_id = empire_city_get_route_id(city_id);
     // try existing storage bay with the same resource
@@ -56,6 +59,9 @@ static int try_export_resource(int building_id, int resource, int city_id)
 {
     building *warehouse = building_get(building_id);
     if (warehouse->type != BUILDING_WAREHOUSE) {
+        return 0;
+    }
+    if (!building_storage_get_permission(BUILDING_STORAGE_PERMISSION_DOCK, warehouse)) {
         return 0;
     }
 
@@ -99,6 +105,9 @@ static int get_closest_warehouse_for_import(int x, int y, int city_id, int dista
             continue;
         }
         if (b->road_network_id != road_network_id) {
+            continue;
+        }
+        if (!building_storage_get_permission(BUILDING_STORAGE_PERMISSION_DOCK, b)) {
             continue;
         }
         const building_storage *storage = building_storage_get(b->storage_id);
@@ -165,6 +174,9 @@ static int get_closest_warehouse_for_export(int x, int y, int city_id, int dista
             continue;
         }
         if (b->road_network_id != road_network_id) {
+            continue;
+        }
+        if (!building_storage_get_permission(BUILDING_STORAGE_PERMISSION_DOCK, b)) {
             continue;
         }
         int distance_penalty = 32;
