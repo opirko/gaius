@@ -460,7 +460,7 @@ static int load_traditional_chinese_fonts(void)
         file_version = 1;
         data_size = io_read_file_into_buffer(CHINESE_FONTS_555, MAY_BE_LOCALIZED, data.tmp_data, SCRATCH_DATA_SIZE);
         if (!data_size) {
-            log_error("Julius requires extra files for Chinese characters:", CHINESE_FONTS_555_V2, 0);
+            log_error("Gaius requires extra files for Chinese characters:", CHINESE_FONTS_555_V2, 0);
             return 0;
         }
     }
@@ -502,7 +502,7 @@ static int load_simplified_chinese_fonts(void)
         file_version = 1;
         data_size = io_read_file_into_buffer(CHINESE_FONTS_555, MAY_BE_LOCALIZED, data.tmp_data, SCRATCH_DATA_SIZE);
         if (!data_size) {
-            log_error("Julius requires extra files for Chinese characters:", CHINESE_FONTS_555_V2, 0);
+            log_error("Gaius requires extra files for Chinese characters:", CHINESE_FONTS_555_V2, 0);
             return 0;
         }
     }
@@ -579,7 +579,7 @@ static int load_korean_fonts(void)
         file_version = 1;
         data_size = io_read_file_into_buffer(KOREAN_FONTS_555, MAY_BE_LOCALIZED, data.tmp_data, SCRATCH_DATA_SIZE);
         if (!data_size) {
-            log_error("Julius requires extra files for Korean characters:", KOREAN_FONTS_555, 0);
+            log_error("Gaius requires extra files for Korean characters:", KOREAN_FONTS_555, 0);
             return 0;
         }
     }
@@ -617,7 +617,7 @@ static int load_japanese_fonts(void)
 
     int data_size = io_read_file_into_buffer(JAPANESE_FONTS_555, MAY_BE_LOCALIZED, data.tmp_data, SCRATCH_DATA_SIZE);
     if (!data_size) {
-        log_error("Julius requires extra files for Japanese characters:", JAPANESE_FONTS_555, 0);
+        log_error("Gaius requires extra files for Japanese characters:", JAPANESE_FONTS_555, 0);
         return 0;
     }
 

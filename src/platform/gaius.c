@@ -28,7 +28,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "platform/android/android.h"
 #include "platform/emscripten/emscripten.h"
 #include "platform/switch/switch.h"
 #include "platform/vita/vita.h"
@@ -441,7 +440,7 @@ static const char *ask_for_data_dir(int again)
 #else
     if (again) {
         int result = tinyfd_messageBox("Wrong folder selected",
-            "Julius requires the original files from Caesar 3 to run.\n\n"
+            "Gaius requires the original files from Caesar 3 to run.\n\n"
             "The selected folder is not a proper Caesar 3 folder.\n\n"
             "Press OK to select another folder or Cancel to exit.",
             "okcancel", "warning", 1);
@@ -462,7 +461,7 @@ static int pre_init(const char *custom_data_dir)
             SDL_Log("%s: directory not found", custom_data_dir);
             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
                 "Error",
-                "Julius requires the original files from Caesar 3.\n\n"
+                "Gaius requires the original files from Caesar 3.\n\n"
                 "Please enter the proper directory or copy the files to the selected directory.",
                 NULL);
             return 0;
@@ -514,8 +513,8 @@ static int pre_init(const char *custom_data_dir)
     }
 #else
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
-        "Julius requires the original files from Caesar 3 to run.",
-        "Move the Julius executable to the directory containing an existing "
+        "Gaius requires the original files from Caesar 3 to run.",
+        "Move the Gaius executable to the directory containing an existing "
         "Caesar 3 installation, or run:\njulius path-to-c3-directory",
         NULL);
 #endif
@@ -523,12 +522,12 @@ static int pre_init(const char *custom_data_dir)
     return 0;
 }
 
-static void setup(const julius_args *args)
+static void setup(const gaius_args *args)
 {
     signal(SIGSEGV, handler);
     setup_logging();
 
-    SDL_Log("Julius version %s", system_version());
+    SDL_Log("Gaius version %s", system_version());
 
     if (!init_sdl()) {
         SDL_Log("Exiting: SDL init failed");
@@ -591,7 +590,7 @@ static void setup(const julius_args *args)
 
 int main(int argc, char **argv)
 {
-    julius_args args;
+    gaius_args args;
     if (!platform_parse_arguments(argc, argv, &args)) {
 #if !defined(_WIN32) && !defined(__vita__) && !defined(__SWITCH__) && !defined(__ANDROID__) && !defined(__APPLE__)
         // Only exit on Linux platforms where we know the system will not throw any weird arguments our way

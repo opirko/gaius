@@ -1,7 +1,5 @@
 # Gaius ![](res/julius_48.png)
 
-[![Github Actions (Julius)](https://github.com/bvschaik/julius/workflows/Build%20Julius/badge.svg)](https://github.com/bvschaik/julius/actions)
-
 ## Gaius: an open source re-implementation of Caesar III
 
 See [Julius](https://github.com/bvschaik/julius) for details.

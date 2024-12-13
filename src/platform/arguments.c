@@ -59,7 +59,7 @@ static int parse_decimal_as_percentage(const char *str)
     return percentage;
 }
 
-int platform_parse_arguments(int argc, char **argv, julius_args *output_args)
+int platform_parse_arguments(int argc, char **argv, gaius_args *output_args)
 {
     int ok = 1;
     int add_blank_line = 1;
@@ -138,7 +138,7 @@ int platform_parse_arguments(int argc, char **argv, julius_args *output_args)
         if (add_blank_line) {
             print_log("");
         }
-        print_log("Usage: julius [ARGS] [DATA_DIR]");
+        print_log("Usage: gaius [ARGS] [DATA_DIR]");
         print_log("ARGS may be:");
         print_log("--display-scale NUMBER");
         print_log("          Scales the display by a factor of NUMBER. Number can be between 0.5 and 5");

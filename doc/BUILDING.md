@@ -1,6 +1,6 @@
-# Building Julius
+# Building Gaius
 
-To build Julius, you need:
+To build Gaius, you need:
 
 - a compiler
 - `cmake`
@@ -14,7 +14,7 @@ After downloading or cloning the sources, run the following commands:
 	$ cmake ..
 	$ make
 
-This results in a `julius` executable for your platform.
+This results in a `gaius` executable for your platform.
 
 See [Running Julius (wiki)](https://github.com/bvschaik/julius/wiki/Running-Julius) for instructions on how to configure Julius.
 

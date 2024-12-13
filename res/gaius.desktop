@@ -2,9 +2,9 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Exec=julius
-Icon=com.github.bvschaik.julius
-Name=Julius
+Exec=gaius
+Icon=com.github.opirko.gaius
+Name=Gaius
 GenericName=Roman city management game
 Comment=Open Source re-implementation of Caesar 3.
 Categories=Game;Simulation;

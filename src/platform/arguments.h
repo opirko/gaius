@@ -8,8 +8,8 @@ typedef struct {
     int force_windowed;
     int force_fullscreen;
     int display_id;
-} julius_args;
+} gaius_args;
 
-int platform_parse_arguments(int argc, char **argv, julius_args *output_args);
+int platform_parse_arguments(int argc, char **argv, gaius_args *output_args);
 
 #endif // PLATFORM_ARGUMENTS_H

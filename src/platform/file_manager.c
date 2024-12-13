@@ -3,7 +3,6 @@
 #include "core/file.h"
 #include "core/log.h"
 #include "core/string.h"
-#include "platform/android/android.h"
 #include "platform/emscripten/emscripten.h"
 #include "platform/file_manager_cache.h"
 #include "platform/vita/vita.h"
@@ -206,7 +205,7 @@ int platform_file_manager_compare_filename_prefix(const char *filename, const ch
 int platform_file_manager_set_base_path(const char *path)
 {
     if (!path) {
-        log_error("set_base_path: path was not set. Julius will probably crash.", 0, 0);
+        log_error("set_base_path: path was not set. Gaius will probably crash.", 0, 0);
         return 0;
     }
 #ifdef __ANDROID__

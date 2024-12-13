@@ -7,7 +7,6 @@
 #include "graphics/graphics.h"
 #include "graphics/screen.h"
 #include "input/cursor.h"
-#include "platform/android/android.h"
 #include "platform/cursor.h"
 #include "platform/switch/switch.h"
 #include "platform/vita/vita.h"

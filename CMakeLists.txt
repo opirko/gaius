@@ -30,8 +30,8 @@ if(${TARGET_PLATFORM} STREQUAL "emscripten" AND NOT DEFINED CMAKE_TOOLCHAIN_FILE
     endif()
 endif()
 
-set(SHORT_NAME julius)
-set(USER_FRIENDLY_NAME Julius)
+set(SHORT_NAME gaius)
+set(USER_FRIENDLY_NAME Gaius)
 project(${SHORT_NAME} C)
 
 if (NINTENDO_SWITCH)
@@ -61,7 +61,7 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "Clang" AND "${CMAKE_BUILD_TYPE}" MATCHES "D
 endif()
 
 set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 7)
+set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
 set(IS_RELEASE_VERSION FALSE)
 
@@ -177,7 +177,7 @@ set(PLATFORM_FILES
     ${PROJECT_SOURCE_DIR}/src/platform/file_manager.c
     ${PROJECT_SOURCE_DIR}/src/platform/file_manager_cache.c
     ${PROJECT_SOURCE_DIR}/src/platform/joystick.c
-    ${PROJECT_SOURCE_DIR}/src/platform/julius.c
+    ${PROJECT_SOURCE_DIR}/src/platform/gaius.c
     ${PROJECT_SOURCE_DIR}/src/platform/keyboard_input.c
     ${PROJECT_SOURCE_DIR}/src/platform/log.c
     ${PROJECT_SOURCE_DIR}/src/platform/mouse.c
@@ -200,11 +200,6 @@ elseif (NINTENDO_SWITCH)
     set(PLATFORM_FILES
         ${PLATFORM_FILES}
         ${PROJECT_SOURCE_DIR}/src/platform/switch/switch.c
-    )
-elseif (${TARGET_PLATFORM} STREQUAL "android")
-    set(PLATFORM_FILES
-        ${PLATFORM_FILES}
-        ${PROJECT_SOURCE_DIR}/src/platform/android/android.c
     )
 endif()
 
@@ -582,7 +577,7 @@ set(TRANSLATION_FILES
 
 set(MACOSX_FILES "")
 if(APPLE)
-    set(MACOSX_FILES ${PROJECT_SOURCE_DIR}/res/julius.icns)
+    set(MACOSX_FILES ${PROJECT_SOURCE_DIR}/res/gaius.icns)
 endif()
 
 set(EMSCRIPTEN_FILES "")
@@ -609,7 +604,7 @@ set(SOURCE_FILES
     ${EDITOR_FILES}
     ${TRANSLATION_FILES}
     ${TINYFD_FILES}
-    ${PROJECT_SOURCE_DIR}/res/julius.rc
+    ${PROJECT_SOURCE_DIR}/res/gaius.rc
     ${MACOSX_FILES}
     ${EMSCRIPTEN_FILES}
 )
@@ -662,27 +657,27 @@ endif()
 
 if(APPLE)
     # generating a macOS icns file (see https://stackoverflow.com/a/20703594)
-    add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/res/julius.icns
-        COMMAND mkdir -p julius.iconset
-        COMMAND sips -z 16 16    julius_256.png --out julius.iconset/icon_16x16.png
-        COMMAND sips -z 32 32    julius_256.png --out julius.iconset/icon_16x16@2x.png
-        COMMAND sips -z 32 32    julius_256.png --out julius.iconset/icon_32x32.png
-        COMMAND sips -z 64 64    julius_256.png --out julius.iconset/icon_32x32@2x.png
-        COMMAND sips -z 128 128  julius_256.png --out julius.iconset/icon_128x128.png
-        COMMAND sips -z 256 256  julius_256.png --out julius.iconset/icon_128x128@2x.png
-        COMMAND sips -z 256 256  julius_256.png --out julius.iconset/icon_256x256.png
-        COMMAND sips -z 512 512  julius_512.png --out julius.iconset/icon_256x256@2x.png
-        COMMAND iconutil -c icns julius.iconset
-        COMMAND rm -R julius.iconset
+    add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/res/gaius.icns
+        COMMAND mkdir -p gaius.iconset
+        COMMAND sips -z 16 16    gaius_256.png --out gaius.iconset/icon_16x16.png
+        COMMAND sips -z 32 32    gaius_256.png --out gaius.iconset/icon_16x16@2x.png
+        COMMAND sips -z 32 32    gaius_256.png --out gaius.iconset/icon_32x32.png
+        COMMAND sips -z 64 64    gaius_256.png --out gaius.iconset/icon_32x32@2x.png
+        COMMAND sips -z 128 128  gaius_256.png --out gaius.iconset/icon_128x128.png
+        COMMAND sips -z 256 256  gaius_256.png --out gaius.iconset/icon_128x128@2x.png
+        COMMAND sips -z 256 256  gaius_256.png --out gaius.iconset/icon_256x256.png
+        COMMAND sips -z 512 512  gaius_512.png --out gaius.iconset/icon_256x256@2x.png
+        COMMAND iconutil -c icns gaius.iconset
+        COMMAND rm -R gaius.iconset
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/res)
-    set_source_files_properties(${PROJECT_SOURCE_DIR}/res/julius.icns PROPERTIES
+    set_source_files_properties(${PROJECT_SOURCE_DIR}/res/gaius.icns PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources")
 
     # setting variables that will populate Info.plist
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.bvschaik.julius")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.bvschaik.gaius")
     set(MACOSX_BUNDLE_BUNDLE_NAME ${USER_FRIENDLY_NAME})
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.10" CACHE STRING "Minimum OS X deployment version" FORCE)
-    set(MACOSX_BUNDLE_ICON_FILE "julius.icns")
+    set(MACOSX_BUNDLE_ICON_FILE "gaius.icns")
     set(MACOSX_BUNDLE_BUNDLE_VERSION
         "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}${VERSION_REVISION}")
     set(MACOSX_BUNDLE_LONG_VERSION_STRING ${MACOSX_BUNDLE_BUNDLE_VERSION})
@@ -814,8 +809,8 @@ elseif(NINTENDO_SWITCH)
     target_link_libraries(${SHORT_NAME} PkgConfig::SDL2)
 
 nx_generate_nacp (${PROJECT_NAME}.nacp
-    NAME   "Julius"
-    AUTHOR "Bianca van Schaik"
+    NAME   "Gaius"
+    AUTHOR "Ondrej Pirko"
 )
 
 nx_create_nro (${PROJECT_NAME}
@@ -837,12 +832,12 @@ else()
     endif()
 
     if(UNIX AND NOT APPLE)
-        install(FILES "res/julius.desktop" DESTINATION "share/applications" RENAME "com.github.bvschaik.julius.desktop")
-        install(FILES "res/julius.metainfo.xml" DESTINATION "share/metainfo" RENAME "com.github.bvschaik.julius.metainfo.xml")
-        install(FILES "res/julius_32.png" DESTINATION "share/icons/hicolor/32x32/apps" RENAME "com.github.bvschaik.julius.png")
-        install(FILES "res/julius_48.png" DESTINATION "share/icons/hicolor/48x48/apps" RENAME "com.github.bvschaik.julius.png")
-        install(FILES "res/julius_256.png" DESTINATION "share/icons/hicolor/256x256/apps" RENAME "com.github.bvschaik.julius.png")
-        install(FILES "res/julius_512.png" DESTINATION "share/icons/hicolor/512x512/apps" RENAME "com.github.bvschaik.julius.png")
+        install(FILES "res/gaius.desktop" DESTINATION "share/applications" RENAME "com.github.bvschaik.gaius.desktop")
+        install(FILES "res/gaius.metainfo.xml" DESTINATION "share/metainfo" RENAME "com.github.bvschaik.gaius.metainfo.xml")
+        install(FILES "res/gaius_32.png" DESTINATION "share/icons/hicolor/32x32/apps" RENAME "com.github.bvschaik.gaius.png")
+        install(FILES "res/gaius_48.png" DESTINATION "share/icons/hicolor/48x48/apps" RENAME "com.github.bvschaik.gaius.png")
+        install(FILES "res/gaius_256.png" DESTINATION "share/icons/hicolor/256x256/apps" RENAME "com.github.bvschaik.gaius.png")
+        install(FILES "res/gaius_512.png" DESTINATION "share/icons/hicolor/512x512/apps" RENAME "com.github.bvschaik.gaius.png")
     endif()
 
     # Unit tests

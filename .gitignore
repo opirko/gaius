@@ -10,7 +10,7 @@
 src/platform/version.c
 res/version.rc
 res/version.txt
-res/julius.icns
+res/gaius.icns
 res/shell.html
 res/*asset*
 
@@ -32,8 +32,3 @@ local.properties
 .idea
 .cxx/
 *.log
-/android/build/
-/android/*/build/
-/android/julius.keystore
-/android/play-publisher.json
-/android/julius/src/main/play
